@@ -1,3 +1,8 @@
 # React Native code snippets
 
 This repository contains links to Gist examples and practical articles on implementing various functionalities in React Native applications. Here you will find examples of using Redux, navigation, working with APIs, and much more. This repository is intended for developers looking for specific examples and best practices for their React Native projects.
+
+
+# Snippets
+
+1. [TypeScript relative paths for React Native project](https://gist.github.com/WhidRubeld/31319a5cd4de05bde79ad6e50743f154)
