@@ -8,4 +8,6 @@ All examples are based on my subjective development experience gained over the y
 
 1. [TypeScript relative paths for React Native project](https://gist.github.com/WhidRubeld/31319a5cd4de05bde79ad6e50743f154)
 2. [Configure Redux Toolkit for React Native project with listeners and types](https://gist.github.com/WhidRubeld/5dee6e32eb591e7d9bd9f8813017a5eb)
+3. Other snippets is coming soon...
+
 
