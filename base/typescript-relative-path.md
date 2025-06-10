@@ -5,8 +5,6 @@
 
 This example is part of the **React Native Code Snippets** codebase. You can find the repository [here](https://github.com/WhidRubeld/react-native-code-snippets). The repository contains many useful implementations of various functionalities that can help you address issues in your React Native project or expand its capabilities.
 
-All examples are based on my subjective development experience gained over the years. I would appreciate a star on the main repository! ❤️
-
 ## Task
 
 You need to design a convenient prefix for importing custom dependencies for your project. The import should be distinct for code and assets, which are located in the `assets` folder at the root level of your project. It is assumed that all project logic will be organized within the `src` directory.
