@@ -1,3 +1,6 @@
+# Setting up Redux for React Native with persist and listeners
+
+
 ## Annotation
 
 This example is part of the **React Native Code Snippets** codebase. You can find the repository [here](https://github.com/WhidRubeld/react-native-code-snippets). The repository contains many useful implementations of various functionalities that can help you address issues in your React Native project or expand its capabilities.
