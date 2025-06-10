@@ -11,6 +11,7 @@ All examples are based on my subjective development experience gained over the y
 2. Redux configuration
     1. [Configure Redux Toolkit for React Native project with listeners, types and persist](redux/basic-configuration.md)
 3. Base practices
+    1. [Implement Social Auth using Web Browser only in Your React Native App](best-practices/social-auth-using-browser.md)
 4. Coming soon...
 
 
