@@ -1,4 +1,4 @@
-# Setting up Social Authentication for React Native Using Web Browsers
+# Setting up Social Authentication for React Native App using Web Browser
 
 ## Introduction
 Sometimes implementing authentication through social networks needs to be done quickly. While most social networks provide their own SDKs for handling OAuth2 authorization in mobile applications, there are situations where using a web browser approach is simpler:
