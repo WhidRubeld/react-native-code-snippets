@@ -17,7 +17,7 @@ All future providers (include Redux) will be located in the `./src/providers/*` 
 
 ## Step 1 - Configure TypeScript relative paths
 
-Set up TypeScript relative path prefixes for your project according to the [instructions](https://gist.github.com/WhidRubeld/31319a5cd4de05bde79ad6e50743f154).
+Set up TypeScript relative path prefixes for your project according to the [instructions](../base/typescript-relative-path.md).
 
 ## Step 2 - Installing packages
 
