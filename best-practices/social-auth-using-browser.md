@@ -10,7 +10,9 @@ Sometimes implementing authentication through social networks needs to be done q
 
 We'll cover authentication via:
 1. Apple
-2. Facebook
+2. Google
+3. Facebook
+
 This approach can be extended to any social network that supports OAuth2.
 
 This example is part of the React Native Code Snippets codebase. You can find the repository [here](https://github.com/WhidRubeld/react-native-code-snippets), which contains many useful implementations to help with your React Native projects.
