@@ -1,11 +1,5 @@
 # React Native Code Recipes
-
-> Production-ready code recipes and architect### 📱 Coming Soon
-- **Navigation**: Routing patterns and navigation strategies
-- **API Integration**: RTK Query patterns and data fetching  
-- **Performance**: Optimization techniques and best practices
-- **Testing**: Testing strategies for React Native apps
-- **Deployment**: CI/CD and release automation
+Production-ready code recipes and architect
 
 ## Legend
 
