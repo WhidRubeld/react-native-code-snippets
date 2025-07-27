@@ -1,17 +1,116 @@
-# Annotation
+# React Native Code Recipes
 
-This repository contains links to Gist examples and practical articles on implementing various functionalities in React Native applications. Here you will find examples of using Redux, navigation, working with APIs, and much more. This repository is intended for developers looking for specific examples and best practices for their React Native projects.
+> Production-ready code recipes and architect### 📱 Coming Soon
+- **Navigation**: Routing patterns and navigation strategies
+- **API Integration**: RTK Query patterns and data fetching  
+- **Performance**: Optimization techniques and best practices
+- **Testing**: Testing strategies for React Native apps
+- **Deployment**: CI/CD and release automation
 
-All examples are based on my subjective development experience gained over the years. I would appreciate a star on this repository! ❤️
+## Legend
 
-# Snippets
+- ✅ **Ready**: Complete and tested
+- 🚧 **In Progress**: Currently being written
+- 📋 **Planned**: Scheduled for developmenttterns for React Native development
 
-1. Base settings
-    1. [TypeScript relative paths for React Native project](base/typescript-relative-path.md)
-2. Redux configuration
-    1. [Configure Redux Toolkit for React Native project with listeners, types and persist](redux/basic-configuration.md)
-3. Base practices
-    1. [Implement Social Auth using Web Browser only in Your React Native App](best-practices/social-auth-using-browser.md)
-4. Coming soon...
+## About This Repository
 
+This repository contains a curated collection of React Native code recipes and best practices. Each recipe provides step-by-step implementation guides for common development challenges, tested in real-world applications.
+
+🌟 **Star this repository** if you find these recipes helpful for your React Native projects!
+
+## Architecture Overview
+
+All recipes follow a consistent architectural approach:
+
+- **Platform**: Expo with Managed Workflow
+- **Language**: TypeScript for enhanced developer experience
+- **Structure**: Modular architecture with organized `src/` directory
+- **Imports**: Clean path mapping with `@/*` for source and `~/*` for assets
+- **State**: Redux Toolkit with persistence and real-time capabilities
+
+## Recipe Categories
+
+### 🏗️ Foundation & Setup
+Essential configuration recipes for project setup.
+
+| Recipe | Description | Complexity | Status |
+|--------|-------------|------------|--------|
+| [TypeScript Path Mapping](./base/typescript-relative-path.md) | Configure clean import aliases | 🟢 Basic | ✅ Ready |
+| [SVG Support via Metro](./base/svg-support-metro.md) | Configure Metro bundler for SVG files | 🟢 Basic | ✅ Ready |
+| [Dynamic Import Context](./base/dynamic-import-context.md) | Dynamic loading with require.context | 🟡 Intermediate | ✅ Ready |
+
+### 🔄 State Management  
+Redux Toolkit patterns with persistence and listeners.
+
+| Recipe | Description | Complexity | Status |
+|--------|-------------|------------|--------|
+| [Redux Toolkit Complete Setup](./redux/basic-configuration.md) | Full Redux configuration with persistence | 🟡 Intermediate | ✅ Ready |
+
+### 🎨 Theming & Styling
+Theme systems and styling approaches.
+
+| Recipe | Description | Complexity | Status |
+|--------|-------------|------------|--------|
+| [Theme System with Redux](./theming/theme-system-redux.md) | Complete theme system with Redux sync | 🟡 Intermediate | ✅ Ready |
+| [Utility-First Styling](./theming/utility-styling.md) | createStyles utility for efficient styling | 🟢 Basic | 📋 Planned |
+
+### 🛡️ Guards & Architecture
+Architectural patterns and application guards.
+
+| Recipe | Description | Complexity | Status |
+|--------|-------------|------------|--------|
+| [Guard Pattern](./architecture/guard-pattern.md) | Implement application guard system | 🟡 Intermediate | ✅ Ready |
+| [Custom Splash Screen](./architecture/custom-splash-screen.md) | Custom splash with guard integration | 🟡 Intermediate | 📋 Planned |
+
+### 🔧 Providers & Context
+Essential providers for React Native applications.
+
+| Recipe | Description | Complexity | Status |
+|--------|-------------|------------|--------|
+| [Essential Providers Stack](./providers/essential-providers.md) | Network, AppState, Notification providers | 🟡 Intermediate | 📋 Planned |
+
+### 🔐 Authentication & Security
+Authentication patterns and security implementations.
+
+| Recipe | Description | Complexity | Status |
+|--------|-------------|------------|--------|
+| [Universal Social Auth](./best-practices/social-auth-using-browser.md) | Cross-platform social authentication | 🟡 Intermediate | ✅ Ready |
+
+
+### � Coming Soon
+- **Navigation**: Routing patterns and navigation strategies
+- **API Integration**: RTK Query patterns and data fetching
+- **Performance**: Optimization techniques and best practices
+- **Testing**: Testing strategies for React Native apps
+- **Deployment**: CI/CD and release automation
+- **UI Components**: Reusable component patterns
+
+## Quick Start
+
+1. Browse the recipe categories above
+2. Select a recipe that matches your needs
+3. Follow the step-by-step implementation guide
+4. Customize the code for your specific use case
+
+## Recipe Structure
+
+Each recipe includes:
+- **🎯 Overview**: What the recipe accomplishes
+- **📋 Prerequisites**: Required setup and dependencies
+- **🔧 Implementation**: Detailed code examples
+- **💡 Usage**: Practical implementation examples
+- **⚡ Best Practices**: Tips and common pitfalls
+
+## Contributing
+
+We welcome contributions! Feel free to:
+- 🐛 Report issues or bugs
+- 💡 Suggest new recipes
+- 🔄 Submit improvements via pull requests
+- ⭐ Star the repository if you find it useful
+
+---
+
+*Crafted with ❤️ for the React Native community*
 
