@@ -1,27 +1,48 @@
-# Setting up Social Authentication for React Native App using Web Browser
+# Universal Social Authentication for React Native
 
-## Introduction
-Sometimes implementing authentication through social networks needs to be done quickly. While most social networks provide their own SDKs for handling OAuth2 authorization in mobile applications, there are situations where using a web browser approach is simpler:
+## Overview
 
-1. When developing multiple applications simultaneously for the same project (both native and web interfaces)
-2. When you want to avoid dealing with multiple SDKs and their specific issues
-3. When you need to accelerate the development process
-4. This tutorial demonstrates a universal authentication method for social networks using a web browser window. You'll only need a website with a redirect page. The exception is Apple ID authentication, which cannot be handled via HTTP routes and will be implemented differently.
+Implement cross-platform social authentication using web browser approach. This recipe provides a unified solution for Google, Facebook, and Apple authentication that works consistently across platforms without dealing with multiple native SDKs.
 
-We'll cover authentication via:
-1. Apple
-2. Google
-3. Facebook
+## What You'll Achieve
 
-This approach can be extended to any social network that supports OAuth2.
+✅ Universal authentication flow for multiple social providers  
+✅ Browser-based OAuth2 implementation  
+✅ Simplified development and maintenance  
+✅ Consistent behavior across platforms  
+✅ Easy integration with backend services  
 
-This example is part of the React Native Code Snippets codebase. You can find the repository [here](https://github.com/WhidRubeld/react-native-code-snippets), which contains many useful implementations to help with your React Native projects.
+## Prerequisites
 
-## Project Architecture
+- Expo project with TypeScript
+- Web redirect page for OAuth callbacks
+- Social provider app configurations (Google, Facebook, Apple)
+- Basic understanding of OAuth2 flow
 
-This tutorial assumes that you are working with an [Expo project](https://expo.dev) in the [Managed Workflow](https://docs.expo.dev/guides/managed-workflow/). Additionally, the project uses [TypeScript](https://www.typescriptlang.org/), providing static type checking and enhanced development experience. 
+## When to Use This Approach
 
-All future services (include Social auth) will be located in the `./src/services/*` directory.
+This browser-based approach is ideal when:
+
+1. **Multi-platform development**: Building both native and web applications
+2. **Rapid development**: Avoiding complex native SDK integrations
+3. **Consistency**: Ensuring uniform authentication flow across platforms
+4. **Maintenance**: Reducing dependency management complexity
+
+> **Note**: Apple ID authentication requires special handling due to platform restrictions.
+
+## Architecture
+
+This recipe organizes social authentication in a service layer:
+
+```
+src/
+├── services/
+│   └── SocialService.ts      # Main social auth service
+├── interfaces/
+│   └── auth.ts              # Authentication types
+└── utils/
+    └── browser.ts           # Browser utilities
+```
 
 ## Step 1 - Configure TypeScript relative paths
 
@@ -306,7 +327,6 @@ SocialService.login(SocialDriver.google, 'YOUR_GOOGLE_CLIENT_ID')
 ```
 
 By following this approach, you can implement social authentication in your React Native application without dealing with the complexities of individual SDKs while maintaining a consistent user experience across different authentication providers.
-
 
 
 
