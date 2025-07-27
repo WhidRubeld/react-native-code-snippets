@@ -1,46 +1,169 @@
-# TypeScript relative paths for React Native project
+# TypeScript Path Mapping for React Native
 
+## Overview
 
-## Annotation
+Configure TypeScript path mapping to enable clean, consistent imports throughout your React Native application. This recipe establishes import aliases that make your codebase more maintainable and professional.
 
-This example is part of the **React Native Code Snippets** codebase. You can find the repository [here](https://github.com/WhidRubeld/react-native-code-snippets). The repository contains many useful implementations of various functionalities that can help you address issues in your React Native project or expand its capabilities.
+## What You'll Achieve
 
-## Task
+✅ Clean imports: `import { Button } from '@/components'` instead of `'../../components'`  
+✅ Separate aliases for source code (`@/*`) and assets (`~/*`)  
+✅ Better code organization and maintainability  
+✅ Consistent import patterns across your team  
 
-You need to design a convenient prefix for importing custom dependencies for your project. The import should be distinct for code and assets, which are located in the `assets` folder at the root level of your project. It is assumed that all project logic will be organized within the `src` directory.
+## Prerequisites
 
-## Project architecture
+- Expo project with TypeScript
+- Basic understanding of TypeScript configuration
 
-This tutorial assumes that you are working with an [Expo project](https://expo.dev) in the [Managed Workflow](https://docs.expo.dev/guides/managed-workflow/). Additionally, the project uses [TypeScript](https://www.typescriptlang.org/), providing static type checking and enhanced development experience. 
+## Implementation
 
-## Solution
+### Step 1: Update TypeScript Configuration
 
-You need to add two prefixes for importing dependencies:
-
-1. `~/*` - For importing dependencies at the root level of the project.
-2. `@/*` - For importing dependencies within the `src` directory.
-
-Expand your TypeScript configuration by adding the necessary fields to your `tsconfig.json` file.
-
-This approach will help you standardize the import of dependencies in your project. Here are examples of possible imports:
-
-1. `import ProjectLogo from "~/assets/logo.png"`
-2. `import { TextArea, TextInput } from "@/components/ui"`
-
+Modify your `tsconfig.json` file to include path mapping:
 
 ```json
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
     "strict": true,
-    "baseUrl": ".", // need add
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"], // need add
-      "~/*": ["./*"] // need add
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
-
 ```
+
+### Step 2: Verify Configuration
+
+Create a test file to ensure path mapping works correctly:
+
+```typescript
+// Test imports using the new aliases
+import { SomeComponent } from '@/components'
+import AppIcon from '~/assets/icon.png'
+
+export const testImports = () => {
+  console.log('Path mapping is working!')
+}
+```
+
+## Usage Examples
+
+### Source Code Imports (Using `@/*`)
+
+```typescript
+// Components
+import { Header, Footer } from '@/components'
+import { Button } from '@/components/core'
+
+// Services  
+import { StorageService, SecureStoreService } from '@/services'
+import { SocialService } from '@/services'
+
+// Utilities
+import { formatDate } from '@/utils'
+import { intl } from '@/utils/intl'
+
+// Store
+import { useDispatch, useSelector } from '@/hooks'
+import { setTheme } from '@/store/slices/settings'
+
+// API
+import api from '@/api'
+import { useGetProfileQuery } from '@/api/profile'
+```
+
+### Asset Imports (Using `~/*`)
+
+```typescript
+// Images
+import AppIcon from '~/assets/icon.png'
+import SplashImage from '~/assets/splash.png'
+import BrandLogo from '~/assets/brand/logo-brand.svg'
+
+// Animations
+import AudioAnimation from '~/assets/animations/audio-light.json'
+
+// App configuration
+import AppConfig from '~/app.config'
+import ThemeConfig from '~/theme.config'
+```
+
+## Real Project Examples
+
+Based on the actual project structure, here are common import patterns:
+
+```typescript
+// Screen components
+import { AuthScreen } from '@/screens/Auth'
+import { ProfileScreen } from '@/screens/Profile'
+
+// Feature components  
+import { ChatMessage } from '@/features/chat'
+import { BillingCard } from '@/features/billing'
+
+// Core UI components
+import { Text, Button, Div } from '@/components/core'
+import { TextInput, DateInput } from '@/components'
+
+// Guards and providers
+import { AuthGuard } from '@/guards'
+import { ThemeProvider } from '@/providers'
+
+// Hooks and utilities
+import { useTheme, useTranslations } from '@/hooks'
+import { useAuth } from '@/hooks/auth'
+import { $notify } from '@/utils'
+
+// Store and API
+import { RootState } from '@/store'
+import { useRegisterMutation } from '@/api/auth'
+```
+
+## Best Practices
+
+### ✅ Do
+
+- Use `@/*` for all source code imports
+- Use `~/*` for assets, configs, and root-level files
+- Keep imports organized by category (components, services, utils)
+- Use consistent naming conventions
+
+### ❌ Don't
+
+- Mix relative and absolute imports in the same file
+- Use path mapping for external dependencies (npm packages)
+- Create overly complex nested path structures
+
+## IDE Configuration
+
+Most modern IDEs automatically recognize TypeScript path mapping. For VS Code, ensure you have:
+
+- TypeScript extension enabled
+- Workspace using the correct TypeScript version
+- Auto-import suggestions configured for custom paths
+
+## Common Issues
+
+### Issue: Path mapping not working in Metro bundler
+
+Metro bundler may need additional configuration for complex path mappings. This is typically handled automatically in Expo projects.
+
+### Issue: Import suggestions not working
+
+Restart your TypeScript language server:
+- **VS Code**: `Cmd/Ctrl + Shift + P` → "TypeScript: Restart TS Server"
+- **WebStorm**: File → Invalidate Caches and Restart
+
+## Related Recipes
+
+- [Redux Toolkit Setup](../redux/basic-configuration.md) - Uses these path mappings for store configuration
+- [Component Organization](#) - Coming soon
+- [Service Layer Architecture](#) - Coming soon
