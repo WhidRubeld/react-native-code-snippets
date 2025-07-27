@@ -1,19 +1,43 @@
-# Setting up Redux for React Native with persist and listeners
+# Redux Toolkit Setup for React Native
 
+## Overview
 
-## Annotation
+Complete Redux Toolkit configuration for React Native applications with persistence, real-time listeners, and TypeScript support. This recipe provides a production-ready Redux setup that handles state persistence, network connectivity, and app lifecycle events.
 
-This example is part of the **React Native Code Snippets** codebase. You can find the repository [here](https://github.com/WhidRubeld/react-native-code-snippets). The repository contains many useful implementations of various functionalities that can help you address issues in your React Native project or expand its capabilities.
+## What You'll Achieve
 
-## Project architecture
+✅ Full Redux Toolkit configuration with TypeScript  
+✅ State persistence using redux-persist  
+✅ Real-time app state and network listeners  
+✅ Type-safe hooks and selectors  
+✅ RTK Query integration ready  
 
-This tutorial assumes that you are working with an [Expo project](https://expo.dev) in the [Managed Workflow](https://docs.expo.dev/guides/managed-workflow/). Additionally, the project uses [TypeScript](https://www.typescriptlang.org/), providing static type checking and enhanced development experience. 
+## Prerequisites
 
-The project is organized with a nested `src` folder where all Redux-related logic is placed in the `store` directory. The general path for these files will be `./src/store/*`.
+- Expo project with TypeScript
+- TypeScript path mapping configured ([see recipe](../base/typescript-relative-path.md))
+- Basic understanding of Redux concepts
 
-All hooks for working with Redux will be imported from the common hooks folder located at `./src/hooks/*`.
+## Architecture
 
-All future providers (include Redux) will be located in the `./src/providers/*` directory.
+This recipe organizes Redux logic in a clean, scalable structure:
+
+```
+src/
+├── store/
+│   ├── configure.ts          # Store configuration
+│   ├── listenHandler.ts       # App state listeners  
+│   ├── types.ts              # TypeScript types
+│   ├── index.ts              # Exports
+│   └── slices/
+│       └── settings.ts       # Example slice
+├── hooks/
+│   └── index.ts              # Typed Redux hooks
+├── providers/
+│   └── index.tsx             # Provider stack
+└── api/
+    └── index.ts              # RTK Query setup
+```
 
 ## Step 1 - Configure TypeScript relative paths
 
@@ -21,24 +45,25 @@ Set up TypeScript relative path prefixes for your project according to the [inst
 
 ## Step 2 - Installing packages
 
-To install the following packages using `yarn`, run the command:
+Install the core Redux packages:
 
 ```bash
 yarn add react-redux @reduxjs/toolkit redux-persist
 ```
 
-To install libraries that require native modules using `yarn`, run the following command:
+Install native dependencies for network and storage:
 
 ```bash
 npx expo install @react-native-community/netinfo @react-native-async-storage/async-storage
 ```
+Integration of RTK Query will be detailed in another recipe.
 
 ## Step 3 - Adding a listener function
 
-To implement all the required listeners, add a `listen-handler.ts` file to the `./src/store/*` directory.
+Create app state and network listeners. Add `listenHandler.ts` to `./src/store/`:
 
 ```ts
-// ./src/store/listen-handler.ts
+// ./src/store/listenHandler.ts
 
 import NetInfo, {
   NetInfoState,
@@ -117,24 +142,24 @@ export default function listenHandler(
 ```
 
 
-## Step 4 - Adding first reducer
+## Step 4 - Create your first slice
 
-Add the first reducer in the `settings.ts` file to the `./src/store/slices/*` directory.
+Create a simple example slice to test the configuration. Add `settings.ts` to `./src/store/slices/`:
 
 ```ts
 // ./src/store/slices/settings.ts
 
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-export interface SettingState {
+export interface SettingsState {
   foo: string
 }
 
-const initialState: SettingState = {
+const initialState: SettingsState = {
   foo: 'bar',
 }
 
-export const settingSlice = createSlice({
+export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
@@ -145,25 +170,25 @@ export const settingSlice = createSlice({
       state.foo = 'bar'
     },
   },
-  extraReducers(builder) {},
 })
 
-export const { setFoo, resetSettings } = settingSlice.actions
+export const { setFoo, resetSettings } = settingsSlice.actions
 
-export default settingSlice
+export default settingsSlice
 ```
 
-## Step 5 - Adding the store configuration file
+## Step 5 - Configure the store
 
-Add the `configure.ts` file to the `./src/store/*` directory for configuring your Redux Toolkit.
+Create the main store configuration. Add `configure.ts` to `./src/store/`:
 
 ```ts
+// ./src/store/configure.ts
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import {
   PersistConfig,
-  PersistedState,
   persistReducer,
   persistStore,
   FLUSH,
@@ -175,24 +200,21 @@ import {
 } from 'redux-persist'
 
 import { listenHandler } from './listenHandler'
-import settingSlice from './slices/settings'
-// import api from '../api'
-
-// import { isDevelopment } from '@/constants'
+import settingsSlice from './slices/settings'
+// import api from '../api' // RTK Query API slice
 
 const CACHE_VERSION = 1
 
 const rootReducer = combineReducers({
-  // [api.reducerPath]: api.reducer,  // for RTK query
-  [settingSlice.reducerPath]: settingSlice.reducer,
+  // [api.reducerPath]: api.reducer, // Uncomment when using RTK Query
+  [settingsSlice.reducerPath]: settingsSlice.reducer,
 })
 
 const persistConfig: PersistConfig<any> = {
   key: 'root',
   storage: AsyncStorage,
   version: CACHE_VERSION,
-  // whitelist: [api.reducerPath],  // for RTK query
-  // can use createMigrate from redux-persist to work out better backward compatibility
+  whitelist: ['settings'], // Add slices you want to persist
   migrate: (state, version) => {
     if (version === CACHE_VERSION) return Promise.resolve(state)
     return Promise.resolve({
@@ -208,29 +230,26 @@ const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(
 )
 
 const store = configureStore({
-  // devTools: isDevelopment,
-  middleware: (gDM) =>
-    gDM({
+  devTools: __DEV__,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
-  // }).concat(api.middleware), // for RTK query
+    }), // .concat(api.middleware), // Uncomment when using RTK Query
   reducer: persistedReducer,
 })
 
+// Setup listeners for app state and network changes
 setupListeners(store.dispatch, listenHandler)
 
 export const persistor = persistStore(store)
-
 export default store
-
 ```
 
-## Step 6 - Adding type exports
+## Step 6 - Export store types
 
-Add the exports for the necessary types that will be useful for your work, especially for the hooks.
-
+Create type definitions for TypeScript support. Add `types.ts` to `./src/store/`:
 
 ```ts
 // ./src/store/types.ts
@@ -241,44 +260,84 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 ```
 
-## Step 7 - Implement the Redux Provider
+## Step 7 - Create store exports
 
-Add the `index.ts` file to the `./src/providers/*` directory.
+Add main exports. Create `index.ts` in `./src/store/`:
 
 ```ts
+// ./src/store/index.ts
+
+export { default as store, persistor } from './configure'
+export * from './types'
+```
+
+## Step 8 - Create typed hooks
+
+Create type-safe Redux hooks. Add to `./src/hooks/index.ts`:
+
+```ts
+// ./src/hooks/index.ts
+
+import {
+  useDispatch as useDefaultDispatch,
+  useSelector as useDefaultSelector,
+  TypedUseSelectorHook,
+} from 'react-redux'
+
+import { AppDispatch, RootState } from '@/store'
+
+export const useDispatch = () => useDefaultDispatch<AppDispatch>()
+export const useSelector: TypedUseSelectorHook<RootState> = useDefaultSelector
+```
+
+## Step 9 - Setup providers
+
+Create the provider stack. Add `index.tsx` to `./src/providers/`:
+
+```tsx
 // ./src/providers/index.tsx
 
 import { ReactNode } from 'react'
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { Provider as ReduxProvider } from 'react-redux
+import { Provider as ReduxProvider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
-// import AppStateProvider from './AppState'
-// import NetworkProvider from './Network'
-// import ThemeProvider from './Theme'
-
 import { store, persistor } from '@/store'
-
-// export { default as NotificationProvider } from './Notification'
 
 function RootProviders({ children }: { children: ReactNode }) {
   return (
     <SafeAreaProvider>
-      {/* <AppStateProvider>
-        <NetworkProvider> */}
       <ReduxProvider store={store}>
-         <PersistGate loading={null} persistor={persistor}>
-            {/* <ThemeProvider> */}
-            {children}
-            {/* </ThemeProvider> */}
-         </PersistGate>
+        <PersistGate loading={null} persistor={persistor}>
+          {children}
+        </PersistGate>
       </ReduxProvider>
-      {/* </NetworkProvider>
-      </AppStateProvider> */}
     </SafeAreaProvider>
   )
 }
+
+export default gestureHandlerRootHOC(RootProviders)
+```
+
+## Step 10 - Connect to your app
+
+Update your main `App.tsx` to use the providers:
+
+```tsx
+// App.tsx
+
+import Launcher from '@/app'
+import RootProviders from '@/providers'
+
+export default function App() {
+  return (
+    <RootProviders>
+      <Launcher />
+    </RootProviders>
+  )
+}
+```
 
 export default gestureHandlerRootHOC(RootProviders)
 ```
@@ -326,47 +385,31 @@ export default function Root() {
 
 ```
 
-## Step 9 - Adding Hooks
+```
 
-Add typed hooks for working with the store to avoid dealing with type definitions each time. Create the `index.ts` file in the `./src/hooks/*` directory.
+## Step 11 - RTK Query integration (Optional)
+
+If you want to use RTK Query for API calls, create the API slice. Add `index.ts` to `./src/api/`:
 
 ```ts
-// ./src/hooks/index.ts
-
-import {
-  useDispatch as useDefaultDispatch,
-  useSelector as useDefaultSelector,
-  TypedUseSelectorHook,
-} from 'react-redux'
-
-import { AppDispatch, RootState } from '@/store'
-
-export const useDispatch = () => useDefaultDispatch<AppDispatch>()
-export const useSelector: TypedUseSelectorHook<RootState> = useDefaultSelector
-```
-
-## Step 10 - Persist and rehydration for RTK Query
-
-If you plan to use RTK Query, you need to add extractRehydrationInfo to your api. Create the `index.ts` file in the `./src/api/*` directory.
-
-```
 // ./src/api/index.ts
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { REHYDRATE } from 'redux-persist'
 
 const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://your-api.com' }),
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: 'https://your-api.com',
+    // Add auth headers, etc.
+  }),
   reducerPath: 'api',
-  tagTypes: [],
-  // persist and rehydration
+  tagTypes: ['User', 'Post'], // Define your cache tags
   extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE && !!action.payload) {
+    if (action.type === REHYDRATE && action.payload) {
       const rehydratedState = (action.payload as any)[reducerPath]
-
       return {
         ...rehydratedState,
-        mutations: {},
+        mutations: {}, // Clear mutations on rehydration
       }
     }
   },
@@ -376,29 +419,61 @@ const api = createApi({
 export default api
 ```
 
-## Summary
+Then uncomment the API-related lines in your store configuration.
 
-Now you have configured Redux Toolkit for managing the store in your project. Here's an example of how to use the hooks:
+## Usage Examples
+
+Now you can use Redux in your components:
+
 ```tsx
-import { Text, View, Button } from 'react-native'
+// ./src/components/ExampleComponent.tsx
+
+import React from 'react'
+import { View, Text, Button } from 'react-native'
 
 import { useDispatch, useSelector } from '@/hooks'
 import { setFoo } from '@/store/slices/settings'
 
-const YourComponent = () => {
+const ExampleComponent = () => {
   const dispatch = useDispatch()
   const { foo } = useSelector((state) => state.settings)
 
   return (
-    <View>
-      <Text>{foo}</Text>
-      <Button
-        title="Update state"
-        onPress={() => dispatch(setFoo('updated state value'))}
+    <View style={{ padding: 20 }}>
+      <Text>Current value: {foo}</Text>
+      <Button 
+        title="Update Value" 
+        onPress={() => dispatch(setFoo('updated value'))} 
       />
     </View>
   )
 }
+
+export default ExampleComponent
 ```
 
-Integration of RTK Query will be detailed in another Gist.
+## Best Practices
+
+### ✅ Do
+- Use typed hooks for type safety
+- Organize slices by feature/domain
+- Use RTK Query for server state
+- Persist only necessary data
+- Handle rehydration properly
+
+### ❌ Don't
+- Store derived state in Redux
+- Persist sensitive data without encryption
+- Ignore migration strategies
+- Over-engineer simple state
+
+## What's Next?
+
+- **RTK Query Advanced Patterns**: Caching strategies, optimistic updates
+- **Real-time Updates**: WebSocket integration with Redux
+- **Performance**: Selector optimization and memoization
+- **Testing**: Testing Redux logic and components
+
+---
+
+Your Redux setup is now complete! This configuration provides a solid foundation for scalable state management in your React Native application.
