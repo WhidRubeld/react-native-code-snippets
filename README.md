@@ -59,15 +59,9 @@ Architectural patterns and application concepts.
 
 | Recipe | Description | Complexity | Status |
 |--------|-------------|------------|--------|
+| [Essential Providers Stack](./architecture/essential-providers.md) | Network, AppState, Keyboard providers | 🟡 Intermediate | ✅ Ready |
 | [Guard Pattern](./architecture/guard-pattern.md) | Implement application guard system | 🟡 Intermediate | ✅ Ready |
 | [Internationalization](./architecture/internationalization.md) | Implementation of smart i18n system | 🟡 Intermediate | 📋 Planned |
-
-### 🔧 Providers & Context
-Essential providers for React Native applications.
-
-| Recipe | Description | Complexity | Status |
-|--------|-------------|------------|--------|
-| [Essential Providers Stack](./providers/essential-providers.md) | Network, AppState, Notification providers | 🟡 Intermediate | 📋 Planned |
 
 ### 🔐 Authentication & Security
 Authentication patterns and security implementations.
