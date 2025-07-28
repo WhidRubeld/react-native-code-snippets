@@ -162,7 +162,7 @@ import { serialize } from 'object-to-formdata'
 const API_URL = 'https://api.example.com'
 const refreshMutex = new Mutex()
 
-function toFormData(data: Record<string, any>, method?: string) => serialize({ ...data, _method: 'PUT' }, { indices: true })
+function toFormData(data: Record<string, any>) => serialize(data, { indices: true })
 
 function showErrorMessage(message?: string, args: any) {
   // Replace with your notification logic
