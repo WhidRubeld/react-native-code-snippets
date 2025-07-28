@@ -20,6 +20,7 @@ A unified approach to creating and using styles in React Native with the `create
   - `@react-navigation/native` (optional)
   - Your own implementation of useTheme/useKeyboard (or similar)
 - Redux Toolkit configured ([see recipe](../redux/basic-configuration.md))
+- Connected keyboard provider ([see recipe](../architecture/essential-providers.md))
 - Theme System configured ([see recipe](./theme-system-redux.md))
 - Basic understanding of React Native StyleSheet system
 
