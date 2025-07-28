@@ -33,6 +33,7 @@ Essential configuration recipes for project setup.
 | [TypeScript Path Mapping](./base/typescript-relative-path.md) | Configure clean import aliases | 🟢 Basic | ✅ Ready |
 | [SVG Support via Metro](./base/svg-support-metro.md) | Configure Metro bundler for SVG files | 🟢 Basic | ✅ Ready |
 | [Dynamic Import Context](./base/dynamic-import-context.md) | Dynamic loading with require.context | 🟡 Intermediate | ✅ Ready |
+| [Expo Asset Helpers](./base/expo-asset-helpers.md) | Convert picked images/docs to base64 or File | 🟢 Basic | ✅ Ready |
 | [FullWindowOverlay Usage](./base/full-window-overlay.md) | Overlay UI above native navigation (iOS) | 🟡 Intermediate | ✅ Ready |
 
 ### 🔄 State Management  
