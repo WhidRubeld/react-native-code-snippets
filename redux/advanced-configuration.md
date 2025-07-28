@@ -9,7 +9,7 @@ This guide covers advanced patterns for configuring RTK Query in React Native, i
 - Custom base URLs per request
 - Authorization flag for endpoints
 - Suppressing error notifications
-- Setting custom HTTP headers (language, auth, device, etc.)
+- Setting custom HTTP headers (language, auth, etc.)
 
 All examples use generic names and constants for clarity.
 
@@ -127,7 +127,7 @@ if (extraOptions.withError !== false) {
 
 ## 7. Setting Custom HTTP Headers
 
-Set headers such as language, authorization, device ID, and timezone in the `prepareHeaders` function of your base query.
+Set headers such as language, authorization, etc., in the `prepareHeaders` function of your base query.
 
 ```ts
 const baseQuery = fetchBaseQuery({
