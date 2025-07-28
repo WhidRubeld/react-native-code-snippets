@@ -34,6 +34,7 @@ Essential configuration recipes for project setup.
 | [SVG Support via Metro](./base/svg-support-metro.md) | Configure Metro bundler for SVG files | 🟢 Basic | ✅ Ready |
 | [Dynamic Import Context](./base/dynamic-import-context.md) | Dynamic loading with require.context | 🟡 Intermediate | ✅ Ready |
 | [Expo Asset Helpers](./base/expo-asset-helpers.md) | Convert picked images/docs to base64 or File | 🟢 Basic | ✅ Ready |
+| [Localize Native Permissions](./base/localize-native-permissions.md) | Localize iOS/Android permission prompts via Expo locales | 🟢 Basic | ✅ Ready |
 | [FullWindowOverlay Usage](./base/full-window-overlay.md) | Overlay UI above native navigation (iOS) | 🟡 Intermediate | ✅ Ready |
 
 ### 🔄 State Management  
@@ -51,13 +52,15 @@ Theme systems and styling approaches.
 |--------|-------------|------------|--------|
 | [Theme System with Redux](./theming/theme-system-redux.md) | Complete theme system with Redux sync | 🟡 Intermediate | ✅ Ready |
 | [Utility-First Styling](./theming/utility-styling.md) | createStyles utility for efficient styling | 🟢 Basic | ✅ Ready |
+| [UI primitives](./theming/theme-system-redux.md) | Native first UI primitives for advanced scaling | 🟡 Intermediate | 📋 Planned |
 
-### 🛡️ Guards & Architecture
-Architectural patterns and application guards.
+### 🛡️ Architecture
+Architectural patterns and application concepts.
 
 | Recipe | Description | Complexity | Status |
 |--------|-------------|------------|--------|
 | [Guard Pattern](./architecture/guard-pattern.md) | Implement application guard system | 🟡 Intermediate | ✅ Ready |
+| [Internationalization](./architecture/internationalization.md) | Implementation of smart i18n system | 🟡 Intermediate | 📋 Planned |
 
 ### 🔧 Providers & Context
 Essential providers for React Native applications.
