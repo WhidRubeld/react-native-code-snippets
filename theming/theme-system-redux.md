@@ -272,7 +272,11 @@ export const initializeTheme = createAsyncThunk(
   'settings/initializeTheme',
   async () => {
     try {
+      const scheme = Appearance.getColorScheme()
       const storedTheme = await AsyncStorage.getItem('theme')
+      if (!!storedTheme && storedTheme !== scheme) {
+        Appearance.setColorScheme(theme !== Theme.auto ? theme : null)
+      }
       return storedTheme ? (storedTheme as Theme) : Theme.auto
     } catch {
       return Theme.auto
@@ -285,6 +289,7 @@ export const changeTheme = createAsyncThunk(
   async (theme: Theme) => {
     try {
       await AsyncStorage.setItem('theme', theme)
+      Appearance.setColorScheme(theme !== Theme.auto ? theme : null)
       return theme
     } catch (error) {
       throw error
