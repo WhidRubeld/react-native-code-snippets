@@ -48,7 +48,7 @@ Theme systems and styling approaches.
 | Recipe | Description | Complexity | Status |
 |--------|-------------|------------|--------|
 | [Theme System with Redux](./theming/theme-system-redux.md) | Complete theme system with Redux sync | 🟡 Intermediate | ✅ Ready |
-| [Utility-First Styling](./theming/utility-styling.md) | createStyles utility for efficient styling | 🟢 Basic | 📋 Planned |
+| [Utility-First Styling](./theming/utility-styling.md) | createStyles utility for efficient styling | 🟢 Basic | ✅ Ready |
 
 ### 🛡️ Guards & Architecture
 Architectural patterns and application guards.
@@ -56,7 +56,6 @@ Architectural patterns and application guards.
 | Recipe | Description | Complexity | Status |
 |--------|-------------|------------|--------|
 | [Guard Pattern](./architecture/guard-pattern.md) | Implement application guard system | 🟡 Intermediate | ✅ Ready |
-| [Custom Splash Screen](./architecture/custom-splash-screen.md) | Custom splash with guard integration | 🟡 Intermediate | 📋 Planned |
 
 ### 🔧 Providers & Context
 Essential providers for React Native applications.
