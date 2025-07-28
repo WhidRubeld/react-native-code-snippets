@@ -41,6 +41,7 @@ Redux Toolkit patterns with persistence and listeners.
 | Recipe | Description | Complexity | Status |
 |--------|-------------|------------|--------|
 | [Redux Toolkit Complete Setup](./redux/basic-configuration.md) | Full Redux configuration with persistence | 🟡 Intermediate | ✅ Ready |
+| [Advanced RTK Query Setup](./redux/advanced-configuration.md) | Custom baseQuery, FormData, error handling, refresh token | 🟡 Intermediate | ✅ Ready |
 
 ### 🎨 Theming & Styling
 Theme systems and styling approaches.
